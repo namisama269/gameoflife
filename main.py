@@ -8,7 +8,6 @@ from pygame.locals import *
 from grid import GOL_Grid
 
 pygame.init()
-pygame.display.set_caption("hiskeri bundi")
 
 WIDTH = 1270
 HEIGHT = 720

@@ -1,5 +1,6 @@
 import random
 from time import sleep
+import os
 
 import pygame
 from pygame import mouse
@@ -20,6 +21,8 @@ gr = GOL_Grid(w, h)
 
 DIVIDER_COLOR = (207,225,254)#(211,211,211)
 DEAD_COLOR = (255,255,255)
+LIVE_COLOR = (255,0,0)
+use_random_color = True
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 screen.fill(DIVIDER_COLOR)
@@ -33,7 +36,8 @@ def draw_cells():
         for j in range(gr.dn, gr.n + gr.dn + 1):
             x_pos = (j-gr.dn) * CELL_SIZE
             y_pos = (i-gr.dm) * CELL_SIZE
-            color = DEAD_COLOR if gr.curr[i][j] == 0 else randomcolor()
+            color = DEAD_COLOR if gr.curr[i][j] == 0 else (randomcolor() if use_random_color else \
+            LIVE_COLOR)
             pygame.draw.rect(screen, color, (x_pos, y_pos, CELL_SIZE-DIVIDER_SIZE, \
             CELL_SIZE-DIVIDER_SIZE))
 
@@ -52,6 +56,8 @@ while running:
             if paused and event.unicode == 'r':
                 gr.random_fill()
                 draw_cells()
+            if event.unicode == 's':
+                pygame.image.save(screen, "screenshots/screenshot.jpg")
             if paused and event.key == pygame.K_ESCAPE:
                 gr.reset()
                 draw_cells()
